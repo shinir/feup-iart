@@ -1,8 +1,6 @@
 import pygame
 import pygame_gui
 import sys
-import play
-import settings
 
 # Initialize Pygame
 pygame.init()
@@ -35,11 +33,11 @@ while is_running:
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == play_button:
-                play.run()
+                print('Hello')
 
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == settings_button:
-                settings.display()
+                print('Hello')
 
     manager.update(time_delta)
 
