@@ -46,3 +46,113 @@ while is_running:
 
 
     pygame.display.update()
+
+def initialState(filename):
+    boardgame = []
+    solution = []
+    f = open(filename,'r')
+    line = f.readline().strip()
+
+    while line[0] == '#':
+        tmp = []
+        for i in range(1,len(line)):
+            tmp.append(i)
+        solution.append(tmp)
+        line = f.readline().strip()
+    
+    line = f.readline().strip()
+
+    while line != "":
+        tmp = []
+        for i in line:
+            tmp.append(i)
+        boardgame.append(tmp)
+        line = f.readline().strip()
+    
+    return [solution, boardgame]
+
+def printBoard(boardgame):
+    for i in boardgame:
+        line = ""
+        for j in i:
+            line += j
+        print(line)
+
+class atomState:
+    x = 0
+    y = 0
+    s = ''
+
+    def set_x(x1):
+        x = x1
+
+    def set_y(y1):
+        y = y1
+
+    def set_s(s1):
+        s = s1
+
+
+def move_up(atom,boardgame):
+    x1 = atom.x
+    y1 = atom.y
+
+    boardgame[y1][x1] = " "
+
+    for i in range(y1-1,0):
+        if boardgame[i][x1] == " ":
+            atom.set_y(i)
+        else:
+            break
+
+    boardgame[atom.y][atom.x] = atom.s
+
+    return boardgame
+
+def move_down(atom,boardgame):
+    x1 = atom.x
+    y1 = atom.y
+
+    boardgame[y1][x1] = " "
+
+    for i in range(y1+1,len(boardgame)):
+        if boardgame[i][x1] == " ":
+            atom.set_y(i)
+        else:
+            break
+
+    boardgame[atom.y][atom.x] = atom.s
+
+    return boardgame
+
+def move_left(atom,boardgame):
+    x1 = atom.x
+    y1 = atom.y
+
+    boardgame[y1][x1] = " "
+
+    for i in range(x1-1,0):
+        if boardgame[y1][i] == " ":
+            atom.set_x(i)
+        else:
+            break
+    
+    boardgame[atom.y][atom.x] = atom.s
+
+    return boardgame
+
+def move_down(atom,boardgame):
+    x1 = atom.x
+    y1 = atom.y
+
+    boardgame[y1][x1] = " "
+
+    for i in range(x1+1,len(boardgame[y1])):
+        if boardgame[y1][i] == " ":
+            atom.set_x(i)
+        else:
+            break
+    
+    boardgame[atom.y][atom.x] = atom.s
+
+    return boardgame

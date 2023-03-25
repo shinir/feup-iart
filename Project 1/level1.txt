@@ -1,0 +1,12 @@
+#HOH
+10x11
+XXXXXXXXXXX
+X   XXXXXXX
+X  HXXXXXXX
+X  X     XX
+X X      XX
+X X  X XX X
+X    X XO X
+XXXHX  X  X
+XX        X
+XXXXXXXXXXX
