@@ -1,12 +1,16 @@
 #HOH
-10x11
+
+# H 3 2 L
+# H 3 7 R 
+# O 8 6 LR
+
 XXXXXXXXXXX
 X   XXXXXXX
-X  HXXXXXXX
+X   XXXXXXX
 X  X     XX
 X X      XX
 X X  X XX X
-X    X XO X
-XXXHX  X  X
+X    X X  X
+XXX X  X  X
 XX        X
 XXXXXXXXXXX
