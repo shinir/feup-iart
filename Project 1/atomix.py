@@ -2,52 +2,57 @@ import pygame
 import pygame_gui
 import sys
 
-# Initialize Pygame
-pygame.init()
+def main():
+    # Initialize Pygame
+    pygame.init()
 
-# Set up the game window
-WINDOW_WIDTH = 600
-WINDOW_HEIGHT = 600
+    # Set up the game window
+    WINDOW_WIDTH = 600
+    WINDOW_HEIGHT = 600
 
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption('Atomix')
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption('Atomix')
 
-manager = pygame_gui.UIManager((WINDOW_WIDTH, WINDOW_HEIGHT))
+    manager = pygame_gui.UIManager((WINDOW_WIDTH, WINDOW_HEIGHT))
 
-clock = pygame.time.Clock()
-is_running = True
+    clock = pygame.time.Clock()
+    is_running = True
 
-background = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-background.fill(pygame.Color('#000000'))
+    background = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
+    background.fill(pygame.Color('#000000'))
 
-play_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 200), (100, 50)), text='Play', manager=manager)
-settings_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 275), (100, 50)), text='Settings', manager=manager)
+    play_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 200), (100, 50)), text='Play', manager=manager)
+    settings_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((250, 275), (100, 50)), text='Settings', manager=manager)
 
-while is_running:
-    time_delta = clock.tick(60)/1000.0
+    while is_running:
+        time_delta = clock.tick(60)/1000.0
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        manager.process_events(event)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            manager.process_events(event)
 
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == play_button:
-                print('Hello')
+            if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == play_button:
+                    filepath = "level1.txt"
+                    filename = filepath.split("/")[-1]
+                    initState(filename)
 
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == settings_button:
-                print('Hello')
+                    
 
-    manager.update(time_delta)
+            if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == settings_button:
+                    print('Hello')
 
-    screen.blit(background, (0,0))
-    manager.draw_ui(screen)
+        manager.update(time_delta)
+
+        screen.blit(background, (0,0))
+        manager.draw_ui(screen)
 
 
-    pygame.display.update()
+        pygame.display.update()
 
-def initialState(filename):
+def initState(filename):
     boardgame = []
     solution = []
     atoms = []
@@ -56,6 +61,7 @@ def initialState(filename):
 
     while line[0] == "#":
         tmp = line.split()
+        print(tmp[1])
 
         a = atomState(0,0," ",0,0,0,0)
         a.set_s(tmp[1])
@@ -98,6 +104,8 @@ def initialState(filename):
             tmp.append(i)
         boardgame.append(tmp)
         line = f.readline().strip()
+
+    printBoard(boardgame, atoms)
     
     return [solution, boardgame, atoms]
 
@@ -239,3 +247,5 @@ def verify_solution(solution,boardgame):
 
     return 0
 
+
+main()
