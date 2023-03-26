@@ -59,39 +59,38 @@ def initState(filename):
     f = open(filename,'r')
     line = f.readline().strip()
 
-    while line[0] == "#":
+    while line != "":
         tmp = line.split()
-        print(tmp[1])
-
         a = atomState(0,0," ",0,0,0,0)
+
         a.set_s(tmp[1])
-        a.set_x(tmp[2])
-        a.set_y(tmp[3])
+        a.set_x(int(tmp[2]))
+        a.set_y(int(tmp[3]))
         
         for i in range(0,len(tmp[4])):
             if tmp[4][i] == "U" : a.set_c_u(a.c_u + 1)
-            elif tmp[4][i] == "D" : a.set_c_d(a.d_u + 1)
-            elif tmp[4][i] == "L" : a.set_c_l(a.l_u + 1)
-            elif tmp[4][i] == "R" : a.set_c_r(a.r_u + 1)
+            elif tmp[4][i] == "D" : a.set_c_d(a.c_d + 1)
+            elif tmp[4][i] == "L" : a.set_c_l(a.c_l + 1)
+            elif tmp[4][i] == "R" : a.set_c_r(a.c_r + 1)
 
         solution.append(a)
         line = f.readline().strip()
 
     line = f.readline().strip()
 
-    while line[0] == "#":
+    while line != "":
         tmp = line.split()
 
         a = atomState(0,0," ",0,0,0,0)
         a.set_s(tmp[1])
-        a.set_x(tmp[2])
-        a.set_y(tmp[3])
+        a.set_x(int(tmp[2]))
+        a.set_y(int(tmp[3]))
         
         for i in range(0,len(tmp[4])):
             if tmp[4][i] == "U" : a.set_c_u(a.c_u + 1)
-            elif tmp[4][i] == "D" : a.set_c_d(a.d_u + 1)
-            elif tmp[4][i] == "L" : a.set_c_l(a.l_u + 1)
-            elif tmp[4][i] == "R" : a.set_c_r(a.r_u + 1)
+            elif tmp[4][i] == "D" : a.set_c_d(a.c_d + 1)
+            elif tmp[4][i] == "L" : a.set_c_l(a.c_l + 1)
+            elif tmp[4][i] == "R" : a.set_c_r(a.c_r + 1)
 
         atoms.append(a)
         line = f.readline().strip()
@@ -137,26 +136,26 @@ class atomState:
         self.c_l = c3
         self.c_r = c4
 
-    def set_x(x1):
-        x = x1
+    def set_x(self,x1):
+        self.x = x1
 
-    def set_y(y1):
-        y = y1
+    def set_y(self,y1):
+        self.y = y1
 
-    def set_s(s1):
-        s = s1
+    def set_s(self,s1):
+        self.s = s1
     
-    def set_c_u(c1):
-        c_u = c1
+    def set_c_u(self,c1):
+        self.c_u = c1
     
-    def set_c_d(c1):
-        c_d = c1
+    def set_c_d(self,c1):
+        self.c_d = c1
     
-    def set_c_l(c1):
-        c_l = c1
+    def set_c_l(self,c1):
+        self.c_l = c1
     
-    def set_c_r(c1):
-        c_r = c1
+    def set_c_r(self,c1):
+        self.c_r = c1
 
 def move_up(atom,boardgame):
     x1 = atom.x
