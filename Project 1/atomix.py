@@ -104,14 +104,14 @@ def initState(filename):
         boardgame.append(tmp)
         line = f.readline().strip()
 
-    printBoard(boardgame, atoms)
+    for i in range(0,len(atoms)):
+        boardgame[atoms[i].y][atoms[i].x] = atoms[i].s
+
+    printBoard(boardgame)
     
     return [solution, boardgame, atoms]
 
-def printBoard(boardgame, atoms):
-    for i in range(0,len(atoms)):
-        boardgame[atoms[i].y][atoms[i].x] = atoms[i].s
-    
+def printBoard(boardgame):
     for i in boardgame:
         line = ""
         for j in i:
@@ -171,7 +171,7 @@ def move_up(atom,boardgame):
 
     boardgame[atom.y][atom.x] = atom.s
 
-    return boardgame
+    return [boardgame,atom]
 
 def move_down(atom,boardgame):
     x1 = atom.x
@@ -187,7 +187,7 @@ def move_down(atom,boardgame):
 
     boardgame[atom.y][atom.x] = atom.s
 
-    return boardgame
+    return [boardgame,atom]
 
 def move_left(atom,boardgame):
     x1 = atom.x
@@ -200,10 +200,10 @@ def move_left(atom,boardgame):
             atom.set_x(i)
         else:
             break
-    
+
     boardgame[atom.y][atom.x] = atom.s
 
-    return boardgame
+    return [boardgame,atom]
 
 def move_right(atom,boardgame):
     x1 = atom.x
@@ -216,14 +216,19 @@ def move_right(atom,boardgame):
             atom.set_x(i)
         else:
             break
-    
+
     boardgame[atom.y][atom.x] = atom.s
 
-    return boardgame
+    return [boardgame,atom]
+
+def equals(atom1,atom2):
+    if(atom1.s == atom2.s & atom1.c_u == atom2.c_u & atom1.c_d == atom2.c_d & atom1.c_l == atom2.c_l & atom1.c_r == atom2.c_r): return 0
+    return 1
 
 def verify_solution(solution,boardgame):
     d1 = 0
     d2 = 0
+
     for i in range(0,len(solution)):
         for j in range(0,len(solution[i])):
             if j == " ": continue
@@ -231,18 +236,16 @@ def verify_solution(solution,boardgame):
                 for k in range(0,len(boardgame)):
                     for l in range(0,len(boardgame[k])):
                         if (l == " " | l == "X"): continue
-                        elif l != j : break
+                        elif equals(l,j) == 1 : return 1
                         else:
                             d1 = l - j
                             d2 = k - i
 
-    if d2 == 0: return 1
-    else:
-        for i in range(0,len(solution)):
-            for j in range(0, len(solution[i])):
-                if solution[i][j] == " " & (boardgame[i+d2][j+d1] == " " | boardgame[i+d2][j+d1] == "X"):continue
-                elif solution[i][j] == boardgame[i+d2][j+d1] : continue
-                else: return 1
+    for i in range(0,len(solution)):
+        for j in range(0, len(solution[i])):
+            if (solution[i][j] == " " & (boardgame[i+d2][j+d1] == " " | boardgame[i+d2][j+d1] == "X")):continue
+            elif equals(solution[i][j],boardgame[i+d2][j+d1]) == 0 : continue
+            else: return 1
 
     return 0
 
