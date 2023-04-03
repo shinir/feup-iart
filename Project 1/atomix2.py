@@ -45,7 +45,7 @@ def main():
                     visited = stuff[3]
                     path = visited
 
-                    path = dfs(atoms,boardgame,solution,visited,path)
+                    path = bfs(atoms,boardgame,solution,visited,path)
 
                     for i in path:
                         printBoard(boardgame,i)
@@ -306,7 +306,7 @@ def is_visited(atoms, visited): #return 0 if visited and 1 if not
         else: continue
     return 1
 
-def dfs(atoms,boardgame,solution,visited,path):
+def bfs(atoms,boardgame,solution,visited,path):
     neighbors = []
     for i in range(0,len(atoms)):
         move = move_up(i,atoms,boardgame)
@@ -349,7 +349,7 @@ def dfs(atoms,boardgame,solution,visited,path):
     for i in neighbors:
         path_cp = copy.deepcopy(path)
         path_cp.append(i)
-        path_cp = dfs(i,boardgame,solution,visited,path_cp)
+        path_cp = bfs(i,boardgame,solution,visited,path_cp)
         if(len(path_cp) > 0): return path_cp
 
     return []
