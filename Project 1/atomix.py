@@ -43,7 +43,7 @@ def main():
                     atoms = stuff[2]
                     visited = stuff[3]
                     printBoard(boardgame,atoms)
-                    play(boardgame, atoms,solution)
+                    play_player(boardgame, atoms,solution)
                     print("you won")
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
@@ -196,10 +196,6 @@ def move_right(atom,boardgame):
 
     return [boardgame,atom]
 
-#def equals(atom1,atom2):
-#    if(atom1.s == atom2.s & atom1.c_u == atom2.c_u & atom1.c_d == atom2.c_d & atom1.c_l == atom2.c_l & atom1.c_r == atom2.c_r): return 0
-#    return 1
-
 def verify_solution(solution,atoms):
     d_x = atoms[0].x - solution[0].x
     d_y = atoms[0].y - solution[0].y
@@ -213,11 +209,11 @@ def verify_solution(solution,atoms):
             
     return 0
 
-def play(boardgame, atoms,solution) :
+def play_player(boardgame, atoms,solution) :
     a = int(input("Da lista de átomos acima, escolhe qual queres mover: "))
     if (a < 0 | a > atoms.len()):
             print("Esse valor não é válido")
-            play(boardgame,atoms,solution)
+            play_player(boardgame,atoms,solution)
 
     direction = input("Agora escolhe a direção em que queres mover o átomo (a,w,s,d): ")
     if (direction == "a"):
@@ -226,59 +222,59 @@ def play(boardgame, atoms,solution) :
 
         if (boardgame[y][x-1] != " "):
             print("Não podes mover esse átomo nessa direção")
-            play(boardgame,atoms,solution)
+            play_player(boardgame,atoms,solution)
         else:
             move = move_left(atoms[a-1],boardgame)
             atoms[a-1] = move[1]
             printBoard(move[0],atoms)
 
             if (verify_solution(solution,atoms) == 0): return 0
-            else: play(move[0],atoms,solution)
+            else: play_player(move[0],atoms,solution)
     elif (direction == "w") :
         x = atoms[a-1].x
         y = atoms[a-1].y
 
         if (boardgame[y-1][x] != " "):
             print("Não podes mover esse átomo nessa direção")
-            play(boardgame,atoms)
+            play_player(boardgame,atoms)
         else:
             move = move_up(atoms[a-1],boardgame)
             atoms[a-1] = move[1]
             printBoard(move[0],atoms)
 
             if (verify_solution(solution,atoms) == 0): return 0
-            else: play(move[0],atoms,solution)
+            else: play_player(move[0],atoms,solution)
     elif (direction == "s") :
         x = atoms[a-1].x
         y = atoms[a-1].y
 
         if (boardgame[y+1][x] != " "):
             print("Não podes mover esse átomo nessa direção")
-            play(boardgame,atoms,solution)
+            play_player(boardgame,atoms,solution)
         else:
             move = move_down(atoms[a-1],boardgame)
             atoms[a-1] = move[1]
             printBoard(move[0],atoms)
 
             if (verify_solution(solution,atoms) == 0): return 0
-            else: play(move[0],atoms,solution)
+            else: play_player(move[0],atoms,solution)
     elif (direction == "d") :
         x = atoms[a-1].x
         y = atoms[a-1].y
 
         if (boardgame[y][x+1] != " "):
             print("Não podes mover esse átomo nessa direção")
-            play(boardgame,atoms,solution)
+            play_player(boardgame,atoms,solution)
         else:
             move = move_right(atoms[a-1],boardgame)
             atoms[a-1] = move[1]
             printBoard(move[0],atoms)
 
             if (verify_solution(solution,atoms) == 0): return 0
-            else: play(move[0],atoms,solution)
+            else: play_player(move[0],atoms,solution)
     else:
         print("Essa direção não é válida")
-        play(boardgame,atoms,solution)
-    
+        play_player(boardgame,atoms,solution)
+
 main()
 
