@@ -1,6 +1,7 @@
 import pygame
 import pygame_gui
 import sys
+import time
 from atomState import atomState
 import copy
 
@@ -55,11 +56,15 @@ def main():
                     algorithm = GreedyAlgorithm(boardgame, atoms, solution, 
                                                 heuristic)
 
+                    start_time = time.time()
                     path += algorithm.solve()
+                    total_time = time.time() - start_time
 
                     for i in path:
                         printBoard(boardgame,i)
                         print(" ")
+
+                    print("Esta solução tem {} passos e demorou {} segundos.\n".format(len(path),total_time))
 
                     for i in path[-1]:
                         print("O átomo {} na posição ({},{}) tem: \n - {} ligação/ões para cima \n - {} ligação/ões para baixo \n - {} ligação/ões para a esquerda \n - {} ligação/ões para a direita".format(i.s,i.x,i.y,i.c_u,i.c_d,i.c_l,i.c_r))
