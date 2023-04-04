@@ -48,10 +48,16 @@ def main():
                     boardgame = stuff[1]
                     atoms = stuff[2]
                     visited = stuff[3]
-                    path = visited
-
-                    # path = bfs(atoms,boardgame,solution,visited,path)
                     
+                    path = visited
+                    
+                    start_time = time.time()
+                    path = bfs(atoms,boardgame,solution,visited,path)
+                    total_time = time.time() - start_time
+                    
+                    print_results(path, total_time, boardgame)
+                    
+                    path = [path[0]]
                     heuristic = HeurClusters.heur_clusters
                     algorithm = GreedyAlgorithm(boardgame, atoms, solution, 
                                                 heuristic)
@@ -59,16 +65,10 @@ def main():
                     start_time = time.time()
                     path += algorithm.solve()
                     total_time = time.time() - start_time
+                    
+                    print_results(path, total_time, boardgame)
 
-                    for i in path:
-                        printBoard(boardgame,i)
-                        print(" ")
-
-                    print("Esta solução tem {} passos e demorou {} segundos.\n".format(len(path),total_time))
-
-                    for i in path[-1]:
-                        print("O átomo {} na posição ({},{}) tem: \n - {} ligação/ões para cima \n - {} ligação/ões para baixo \n - {} ligação/ões para a esquerda \n - {} ligação/ões para a direita".format(i.s,i.x,i.y,i.c_u,i.c_d,i.c_l,i.c_r))
-                        print(" ")
+                    
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == settings_button:
@@ -369,5 +369,15 @@ def bfs(atoms,boardgame,solution,visited,path):
 
     return []
 
+def print_results(path, total_time, board):
+    for i in path:
+        printBoard(board,i)
+        print(" ")
+
+    print("Esta solução tem {} passos e demorou {} segundos.\n".format(len(path),total_time))
+
+    for i in path[-1]:
+        print("O átomo {} na posição ({},{}) tem: \n - {} ligação/ões para cima \n - {} ligação/ões para baixo \n - {} ligação/ões para a esquerda \n - {} ligação/ões para a direita".format(i.s,i.x,i.y,i.c_u,i.c_d,i.c_l,i.c_r))
+        print(" ")
 
 main()
