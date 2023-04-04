@@ -2,6 +2,7 @@
 
 # import atomix2
 from atomState import atomState
+import copy
 import math
 
 class GreedyAlgorithm:
@@ -10,6 +11,7 @@ class GreedyAlgorithm:
         self._atoms = atoms
         self._solution = solution
         self._heuristic = heuristic
+        self._visited = [atoms]
     
     def solve(self):
         # try:
@@ -25,8 +27,16 @@ class GreedyAlgorithm:
             for action in (move_up, move_down,
                            move_left, move_right):
                 temp = action(i, atoms, self._board)
-                if len(temp) == 0: continue
+                
+                if (len(temp) == 0): 
+                    continue
+            
+                if (is_visited(temp[0], self._visited) == 0):
+                    continue
+            
                 temp_heur = self._heuristic(temp[0], self._solution)
+                
+                self._visited.append(temp[0])
                 
                 if temp_heur < best_heur:
                     best_step = temp[0]
@@ -37,8 +47,18 @@ class GreedyAlgorithm:
         
         return [best_step] + self.__do_step(best_step)
     
+
+class AStarAlgorithm:
     
-    # TEMPORARY WEE WOOOOOOOOOO
+    def __init__(self, board, atoms, solution, heur1, heur2):
+        self._board = board
+        self._atoms = atoms
+        self._solution = solution
+        self._heur1 = heur1
+        self._heur2 = heur2
+        
+    
+# TEMPORARY WEE WOOOOOOOOOO
     
 def move_up(i,atoms,boardgame):
     if (boardgame[atoms[i].y-1][atoms[i].x] != " ") : return []
@@ -168,3 +188,44 @@ def move_right(i,atoms,boardgame):
         if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
 
     return [tmp1]
+
+def printBoard(boardgame,atoms): #recebe em boardgame um tabuleiro sem átomos e em atoms o conjunto de átomos que tem de escrever
+    boardgame3 = copy.deepcopy(boardgame)
+
+    for i in range(0,len(atoms)):
+        boardgame3[atoms[i].y][atoms[i].x] = atoms[i].s
+
+    for i in boardgame3:
+        line = ""
+        for j in i:
+            line += j
+        print(line)
+
+    print(" ")
+    
+def equal_states(atoms1,atoms2): #return 0 if equal and 1 if not
+    for i in range(0,len(atoms1)):
+        if (equal_atoms(atoms1[i],atoms2[i]) == 1) : return 1
+    return 0
+
+def is_visited(atoms, visited): #return 0 if visited and 1 if not
+    for i in visited:
+        if(equal_states(i,atoms) == 0) : return 0
+        else: continue
+    return 1
+
+def equal_atoms(atom1,atom2): #return 0 if equal and 1 if not
+    if (atom1.s == atom2.s):
+        if (atom1.x == atom2.x):
+            if (atom1.y == atom2.y):
+                if (atom1.c_u == atom2.c_u):
+                    if (atom1.c_d == atom2.c_d):
+                        if (atom1.c_l == atom2.c_l):
+                            if (atom1.c_r == atom2.c_r) : return 0
+                            else: return 1
+                        else: return 1
+                    else: return 1
+                else: return 1
+            else: return 1
+        else: return 1
+    else: return 1
