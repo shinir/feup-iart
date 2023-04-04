@@ -4,6 +4,9 @@ import sys
 from atomState import atomState
 import copy
 
+import HeurClusters
+from algorithms import GreedyAlgorithm
+
 def main():
     # Initialize Pygame
     pygame.init()
@@ -31,6 +34,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
             manager.process_events(event)
 
@@ -45,7 +49,13 @@ def main():
                     visited = stuff[3]
                     path = visited
 
-                    path = bfs(atoms,boardgame,solution,visited,path)
+                    # path = bfs(atoms,boardgame,solution,visited,path)
+                    
+                    heuristic = HeurClusters.heur_clusters
+                    algorithm = GreedyAlgorithm(boardgame, atoms, solution, 
+                                                heuristic)
+
+                    path += algorithm.solve()
 
                     for i in path:
                         printBoard(boardgame,i)
