@@ -1,0 +1,27 @@
+# H 2 1 D
+# H 0 1 R
+# C 2 1 UDLR
+# O 1 1 LR
+# H 3 1 L
+# H 2 2 U
+
+# H 2 3 D
+# H 2 8 R
+# C 9 7 UDLR
+# O 6 8 LR
+# H 8 11 L
+# H 5 10 U
+
+XXXXXXXXXXXXX
+X  XXXXXXXXXX
+X  XXXXXXXXXX
+X  XXXXXXXXXX
+X  XXXXXXXXXX
+X   X   X XXX
+X X     X   X
+X       X   X
+X  XXX  X X X
+X           X
+X      X  X X
+XXXXXX    X X
+XXXXXXXXXXXXX

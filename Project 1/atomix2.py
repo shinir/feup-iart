@@ -4,6 +4,7 @@ import sys
 import time
 from atomState import atomState
 import copy
+from datetime import datetime
 
 import HeurClusters
 from algorithms import GreedyAlgorithm
@@ -41,7 +42,7 @@ def main():
 
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == play_button:
-                    filepath = "level1.txt"
+                    filepath = "level3.txt"
                     filename = filepath.split("/")[-1]
                     stuff = initState(filename)
                     solution = stuff[0]
@@ -67,6 +68,36 @@ def main():
                     total_time = time.time() - start_time
                     
                     print_results(path, total_time, boardgame)
+                    
+                    
+"""=======
+
+                    print(len(solution))
+                    print(len(atoms))
+                    print(len(boardgame))
+
+                    time1 = datetime.now()
+                    path = bfs(atoms,boardgame,solution,visited,path)
+                    time2 = datetime.now()
+
+                    total_time = time2 - time1
+
+                    print("Time: ", total_time)
+                    print("Number of moves: ", len(path) - 1)
+                    print("Visited states: ", len(visited))
+
+                    for i in path:
+                        printBoard(boardgame,i)
+                        print(" ")
+
+                    for i in path[-1]:
+                        print("O átomo {} na posição ({},{}) tem: \n - {} ligação/ões para cima \n - {} ligação/ões para baixo \n - {} ligação/ões para a esquerda \n - {} ligação/ões para a direita".format(i.s,i.x,i.y,i.c_u,i.c_d,i.c_l,i.c_r))
+                        print(" ")
+>>>>>>> c17a6f3003d6e6233546cff1418cb700a69e97e0
+
+                    print("Time: ", total_time)
+                    print("Number of moves: ", eval_function(path))
+                    print("Visited states: ", len(visited))"""
 
                     
 
@@ -80,6 +111,9 @@ def main():
         manager.draw_ui(screen)
 
         pygame.display.update()
+
+def eval_function(path):
+    return len(path) - 1
 
 def initState(filename):
     boardgame = []
