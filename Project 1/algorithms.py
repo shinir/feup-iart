@@ -2,7 +2,6 @@
 
 # import atomix2
 from atomState import atomState
-import copy
 import math
 
 class GreedyAlgorithm:
@@ -23,8 +22,8 @@ class GreedyAlgorithm:
         best_heur = math.inf
         
         for i in range(len(atoms)):
-            for action in (self.move_up, self.move_down,
-                           self.move_left, self.move_right):
+            for action in (move_up, move_down,
+                           move_left, move_right):
                 temp = action(i, atoms, self._board)
                 if len(temp) == 0: continue
                 temp_heur = self._heuristic(temp[0], self._solution)
@@ -41,131 +40,131 @@ class GreedyAlgorithm:
     
     # TEMPORARY WEE WOOOOOOOOOO
     
-    def move_up(self,i,atoms,boardgame):
-        if (boardgame[atoms[i].y-1][atoms[i].x] != " ") : return []
-        
-        tmp1 = []
-        for k in atoms:
-            tmp2 = atomState()
-            tmp2.set_x(k.x)
-            tmp2.set_y(k.y)
-            tmp2.set_s(k.s)
-            tmp2.set_c_u(k.c_u)
-            tmp2.set_c_d(k.c_d)
-            tmp2.set_c_l(k.c_l)
-            tmp2.set_c_r(k.c_r)
-            tmp1.append(tmp2)
+def move_up(i,atoms,boardgame):
+    if (boardgame[atoms[i].y-1][atoms[i].x] != " ") : return []
+    
+    tmp1 = []
+    for k in atoms:
+        tmp2 = atomState()
+        tmp2.set_x(k.x)
+        tmp2.set_y(k.y)
+        tmp2.set_s(k.s)
+        tmp2.set_c_u(k.c_u)
+        tmp2.set_c_d(k.c_d)
+        tmp2.set_c_l(k.c_l)
+        tmp2.set_c_r(k.c_r)
+        tmp1.append(tmp2)
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
 
-        x1 = tmp1[i].x
-        y1 = tmp1[i].y
+    x1 = tmp1[i].x
+    y1 = tmp1[i].y
 
-        for k in range(y1-1,0,-1):
-            if boardgame[k][x1] == " ":
-                tmp1[i].set_y(k)
-            else:
-                break
+    for k in range(y1-1,0,-1):
+        if boardgame[k][x1] == " ":
+            tmp1[i].set_y(k)
+        else:
+            break
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
 
 
-        return [tmp1]
+    return [tmp1]
 
-    def move_down(self,i,atoms,boardgame):
-        if (boardgame[atoms[i].y+1][atoms[i].x] != " ") : return []
+def move_down(i,atoms,boardgame):
+    if (boardgame[atoms[i].y+1][atoms[i].x] != " ") : return []
 
-        tmp1 = []
-        for k in atoms:
-            tmp2 = atomState()
-            tmp2.set_x(k.x)
-            tmp2.set_y(k.y)
-            tmp2.set_s(k.s)
-            tmp2.set_c_u(k.c_u)
-            tmp2.set_c_d(k.c_d)
-            tmp2.set_c_l(k.c_l)
-            tmp2.set_c_r(k.c_r)
-            tmp1.append(tmp2)
+    tmp1 = []
+    for k in atoms:
+        tmp2 = atomState()
+        tmp2.set_x(k.x)
+        tmp2.set_y(k.y)
+        tmp2.set_s(k.s)
+        tmp2.set_c_u(k.c_u)
+        tmp2.set_c_d(k.c_d)
+        tmp2.set_c_l(k.c_l)
+        tmp2.set_c_r(k.c_r)
+        tmp1.append(tmp2)
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
 
-        x1 = tmp1[i].x
-        y1 = tmp1[i].y
+    x1 = tmp1[i].x
+    y1 = tmp1[i].y
 
-        for k in range(y1+1,len(boardgame)):
-            if boardgame[k][x1] == " ":
-                tmp1[i].set_y(k)
-            else:
-                break
+    for k in range(y1+1,len(boardgame)):
+        if boardgame[k][x1] == " ":
+            tmp1[i].set_y(k)
+        else:
+            break
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
 
-        return [tmp1]
+    return [tmp1]
 
-    def move_left(self,i,atoms,boardgame):
-        if (boardgame[atoms[i].y][atoms[i].x-1] != " ") : return []
+def move_left(i,atoms,boardgame):
+    if (boardgame[atoms[i].y][atoms[i].x-1] != " ") : return []
 
-        tmp1 = []
-        for k in atoms:
-            tmp2 = atomState()
-            tmp2.set_x(k.x)
-            tmp2.set_y(k.y)
-            tmp2.set_s(k.s)
-            tmp2.set_c_u(k.c_u)
-            tmp2.set_c_d(k.c_d)
-            tmp2.set_c_l(k.c_l)
-            tmp2.set_c_r(k.c_r)
-            tmp1.append(tmp2)
+    tmp1 = []
+    for k in atoms:
+        tmp2 = atomState()
+        tmp2.set_x(k.x)
+        tmp2.set_y(k.y)
+        tmp2.set_s(k.s)
+        tmp2.set_c_u(k.c_u)
+        tmp2.set_c_d(k.c_d)
+        tmp2.set_c_l(k.c_l)
+        tmp2.set_c_r(k.c_r)
+        tmp1.append(tmp2)
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
 
-        x1 = tmp1[i].x
-        y1 = tmp1[i].y
+    x1 = tmp1[i].x
+    y1 = tmp1[i].y
 
-        for k in range(x1-1,0,-1):
-            if boardgame[y1][k] == " ":
-                tmp1[i].set_x(k)
-            else:
-                break
+    for k in range(x1-1,0,-1):
+        if boardgame[y1][k] == " ":
+            tmp1[i].set_x(k)
+        else:
+            break
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
 
-        return [tmp1]
+    return [tmp1]
 
-    def move_right(self,i,atoms,boardgame):
-        if (boardgame[atoms[i].y][atoms[i].x+1] != " ") : return []
+def move_right(i,atoms,boardgame):
+    if (boardgame[atoms[i].y][atoms[i].x+1] != " ") : return []
 
-        tmp1 = []
-        for k in atoms:
-            tmp2 = atomState()
-            tmp2.set_x(k.x)
-            tmp2.set_y(k.y)
-            tmp2.set_s(k.s)
-            tmp2.set_c_u(k.c_u)
-            tmp2.set_c_d(k.c_d)
-            tmp2.set_c_l(k.c_l)
-            tmp2.set_c_r(k.c_r)
-            tmp1.append(tmp2)
+    tmp1 = []
+    for k in atoms:
+        tmp2 = atomState()
+        tmp2.set_x(k.x)
+        tmp2.set_y(k.y)
+        tmp2.set_s(k.s)
+        tmp2.set_c_u(k.c_u)
+        tmp2.set_c_d(k.c_d)
+        tmp2.set_c_l(k.c_l)
+        tmp2.set_c_r(k.c_r)
+        tmp1.append(tmp2)
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = atoms[k].s
 
-        x1 = tmp1[i].x
-        y1 = tmp1[i].y
+    x1 = tmp1[i].x
+    y1 = tmp1[i].y
 
-        for k in range(x1+1,len(boardgame[y1])):
-            if boardgame[y1][k] == " ":
-                tmp1[i].set_x(k)
-            else:
-                break
+    for k in range(x1+1,len(boardgame[y1])):
+        if boardgame[y1][k] == " ":
+            tmp1[i].set_x(k)
+        else:
+            break
 
-        for k in range(0,len(atoms)):
-            if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
+    for k in range(0,len(atoms)):
+        if(k != i): boardgame[atoms[k].y][atoms[k].x] = " "
 
-        return [tmp1]
+    return [tmp1]

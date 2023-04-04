@@ -3,7 +3,7 @@
 # This heuristic returns the inverse number of solution-aligned atoms
         
 def heur_clusters(atoms, solution):
-    ret = len(atoms)
+    ret = len(atoms)-1
     
     dlist = [[atoms[0].x - solution[0].x, atoms[0].y - solution[0].y]]
     
@@ -16,3 +16,8 @@ def heur_clusters(atoms, solution):
     
     print(ret)
     return ret
+
+# Cost of states so far.
+
+def heur_cost(states):
+    return len(states)
