@@ -1,5 +1,5 @@
 # Project 2
-IA Project of group T08G11.
+IA Project of group G73.
 ## Group members
 
 1. José Cunha – up201905451
